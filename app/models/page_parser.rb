@@ -4,8 +4,8 @@ require_relative "../../config/boot"
 
 module OpenLicitaciones
   class PageParser
-    def initialize(url)
-      @agent = Mechanize.new { |agent| agent.user_agent_alias = 'Mac Safari' }
+    def initialize(url, agent)
+      @agent = agent
       @url = url
       @contracts = []
     end
