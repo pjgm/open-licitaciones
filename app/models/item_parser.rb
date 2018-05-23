@@ -1,31 +1,8 @@
 # frozen_string_literal: true
 
-require_relative "./contract"
+require_relative "../../config/boot"
 
 module OpenLicitaciones
-  class PageParser
-    def initialize(url)
-      @agent = Mechanize.new { |agent| agent.user_agent_alias = 'Mac Safari' }
-      @url = url
-      @contracts = []
-    end
-
-    def parse
-      @agent.get(@url) do |page|
-        page.search(".tdidExpedienteWidth a").map{|h| h['href'] }.each do |href|
-          contract = parse_item @agent.click(page.link_with(:href => href))
-          @contracts.push contract
-        end
-      end
-
-      @contracts
-    end
-
-    def parse_item(item_page)
-      ItemParser.new(item_page).parse
-    end
-  end
-
   class ItemParser
     def initialize(item_page)
       @page = item_page
@@ -33,8 +10,8 @@ module OpenLicitaciones
     end
 
     def parse
-      @contract.id = SecureRandom.uuid
-      @contract.external_id = get_id
+      @contract.internal_id = SecureRandom.uuid
+      @contract.id = get_id
       @contract.entity_name = get_entity
       @contract.contractor_name = get_contractor
       @contract.status = get_status
@@ -51,6 +28,7 @@ module OpenLicitaciones
       @contract.assignee = get_assignee
       @contract.number_of_proposals = get_number_of_proposals
       @contract.final_amount = get_final_amount
+      @contract.updated_at = Time.now
       @contract
     end
 
@@ -118,7 +96,11 @@ module OpenLicitaciones
     end
 
     def get_permalink
-      @page.search("#fila18_columna2_2 span").text.strip
+      if @page.search("#fila18_columna2_1 span").length > 0
+        @page.search("#fila18_columna2_1 span").text.strip
+      else
+        @page.search("#fila18_columna2_2 span").text.strip
+      end
     end
 
     def get_procedure_result

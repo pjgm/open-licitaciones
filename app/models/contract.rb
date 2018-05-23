@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
-require "bundler/setup"
-require "virtus"
+require_relative "../../config/boot"
 
 module OpenLicitaciones
   class Contract
     include Virtus.model
 
     attribute :id, String
-    attribute :external_id, String
+    attribute :internal_id, String
     attribute :permalink, String
     attribute :entity_name, String
     attribute :contractor_name, String
@@ -25,5 +24,6 @@ module OpenLicitaciones
     attribute :assignee, String
     attribute :number_of_proposals, Integer
     attribute :final_amount, Float
+    attribute :updated_at, DateTime
   end
 end

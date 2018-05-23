@@ -1,27 +1,21 @@
 # frozen_string_literal: true
 
-require "bundler/setup"
-require "mechanize"
-require "nokogiri"
-require "open-uri"
-require "byebug"
-require "openssl"
-require "securerandom"
-require_relative "./page_parser"
+require_relative "../../config/boot"
 
 I_KNOW_THAT_OPENSSL_VERIFY_PEER_EQUALS_VERIFY_NONE_IS_WRONG = nil
 OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
 module OpenLicitaciones
   class Parser
-    def self.parse
+    def self.parse(npages = 5)
       url = "https://contrataciondelestado.es/wps/portal/licRecientes"
-      PageParser.new(url).parse
+      contracts = PageParser.new(url).parse
+      Importer.import(contracts)
       next_link = get_next_link(url)
 
-      5.times do |i|
-        puts "Iteration #{i}"
-        PageParser.new(next_link).parse
+      npages.times do |i|
+        contracts = PageParser.new(next_link).parse
+        Importer.import(contracts)
         next_link = get_next_link(next_link)
       end
     end
@@ -37,6 +31,3 @@ module OpenLicitaciones
     end
   end
 end
-
-
-OpenLicitaciones::Parser.parse
