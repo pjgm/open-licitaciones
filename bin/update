@@ -6,4 +6,4 @@ def system!(*args)
   system(*args) || abort("\n== Command #{args} failed ==")
 end
 
-OpenLicitaciones::Parser.parse(5)
+OpenLicitaciones::Parser.parse(50)
