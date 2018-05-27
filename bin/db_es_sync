@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+
+require_relative "../config/application"
+
+body = {
+  from: 0,
+  size: 10_000,
+}
+
+response = Chewy.client.search index: ContractsIndex.index_name, type: ContractsIndex::Contract.type_name, body: body
+response['hits']['hits'].each do |h|
+  item = h['_source']
+  existing_contract = OpenLicitaciones::Contract.where(id: item['id']).first
+  if existing_contract.nil?
+    begin
+      c = OpenLicitaciones::Contract.new
+      c.id = item['id']
+      c.set(item.except('id'))
+      c.save
+      puts "- [OK - DB] Imported contract #{c.id}"
+    rescue
+      puts $!
+      puts item
+    end
+  end
+end
+
