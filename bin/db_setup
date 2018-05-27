@@ -1,10 +1,22 @@
 #!/usr/bin/env ruby
 
 require_relative "../config/boot"
+require_relative "../config/db"
 
 def system!(*args)
-  system(*args) || abort("\n== Command #{args} failed ==")
+  system(*args)
 end
+
+database_name = YAML.load(ERB.new(File.read(File.expand_path('../../config/database.yml', __FILE__))).result)['database']
+system! "dropdb #{database_name}"
+system! "createdb #{database_name}"
+puts "- Database #{database_name} created"
+
+Sequel.extension :migration
+Sequel::Migrator.run(OpenLicitaciones::DB.connection, "db/migrate")
+
+require_relative "../config/application"
 
 ContractsIndex.delete
 ContractsIndex.create!
+puts "- ContractsIndex created"

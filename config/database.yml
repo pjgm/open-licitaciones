@@ -1,0 +1,6 @@
+---
+user: <%= ENV["PG_USERNAME"] %>
+password: <%= ENV["PG_PASSWORD"] %>
+host: <%= ENV["PG_HOST"] %>
+database: 'open-licitaciones'
+adapter: 'postgres'
