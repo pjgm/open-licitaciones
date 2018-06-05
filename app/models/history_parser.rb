@@ -2,6 +2,8 @@
 
 require_relative "../../config/application"
 
+Thread.report_on_exception = false
+
 module OpenLicitaciones
   class HistoryParser
     BASE_URL = "https://contrataciondelestado.es/"
@@ -18,7 +20,6 @@ module OpenLicitaciones
         contracts = []
         threads = []
         urls_group.each do |url|
-          puts url
           threads << Thread.new do
             @agent.get(url) do |page|
               contracts.push ItemParser.new(page).parse
