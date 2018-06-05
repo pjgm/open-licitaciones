@@ -22,6 +22,8 @@ module OpenLicitaciones
         contract.save
       end
       puts "- [OK - DB] #{existing_contract ? "Updated" : "Imported"} contract #{contract.id}"
+    rescue
+      puts "- [KO] #{$!}"
     end
   end
 end

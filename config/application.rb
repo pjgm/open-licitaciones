@@ -12,7 +12,7 @@ require_relative "../app/models/item_parser"
 require_relative "../app/models/page_parser"
 require_relative "../app/models/importer"
 require_relative "../app/models/feed_parser"
-require_relative "../app/models/search_parser"
+require_relative "../app/models/history_parser"
 
 # Chewy indexes
 require_relative "../app/chewy/contracts_index"
