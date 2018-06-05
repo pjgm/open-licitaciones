@@ -2,11 +2,8 @@
 
 require_relative "../../config/application"
 
-I_KNOW_THAT_OPENSSL_VERIFY_PEER_EQUALS_VERIFY_NONE_IS_WRONG = nil
-OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
-
 module OpenLicitaciones
-  class Parser
+  class FeedParser
     def self.parse(npages = 5)
       url = "https://contrataciondelestado.es/wps/portal/licRecientes"
       @agent = Mechanize.new { |agent| agent.user_agent_alias = 'Mac Safari' }
