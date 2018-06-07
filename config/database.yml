@@ -1,6 +1,6 @@
 ---
-user: <%= ENV["PG_USERNAME"] %>
-password: <%= ENV["PG_PASSWORD"] %>
-host: <%= ENV["PG_HOST"] %>
+user: <%= ENV.fetch("PG_USERNAME") { "postgres" } %>
+password: <%= ENV.fetch("PG_PASSWORD") { "" } %>
+host: <%= ENV.fetch("PG_HOST") { "localhost" } %>
 database: 'open-licitaciones'
 adapter: 'postgres'
