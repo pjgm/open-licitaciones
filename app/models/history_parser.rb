@@ -15,7 +15,7 @@ module OpenLicitaciones
       doc = Nokogiri::HTML(open(url))
       urls = doc.search("//loc").map(&:text).compact
 
-      urls.each_slice(100).each do |urls_group|
+      urls.each_slice(10).each do |urls_group|
         threads = []
         urls_group.each do |url|
           threads << Thread.new do
@@ -28,6 +28,7 @@ module OpenLicitaciones
           end
         end
         threads.each { |thr| thr.join }
+        sleep 5
       end
     end
   end

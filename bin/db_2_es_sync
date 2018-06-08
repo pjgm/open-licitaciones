@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require_relative "../config/application"
+
+OpenLicitaciones::Contract.all.each do |contract|
+  ContractsIndex::Contract.import contract
+end
