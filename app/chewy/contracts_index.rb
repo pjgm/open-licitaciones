@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+Chewy.settings = { host: ENV.fetch("ELASTICSEARCH_URL") }
+
 class ContractsIndex < Chewy::Index
   define_type OpenLicitaciones::Contract do
     field :id, type: "string"
