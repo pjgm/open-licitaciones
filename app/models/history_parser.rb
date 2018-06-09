@@ -22,7 +22,11 @@ module OpenLicitaciones
             contracts = []
             agent = Mechanize.new { |agent| agent.user_agent_alias = 'Mac Safari' }
             agent.get(url) do |page|
-              contracts.push ItemParser.new(page).parse
+              begin
+                item = ItemParser.new(page).parse
+                contracts.push(item)
+              rescue
+              end
             end
             Importer.import(contracts)
           end

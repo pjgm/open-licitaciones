@@ -13,8 +13,9 @@ module OpenLicitaciones
     def parse
       @agent.get(@url) do |page|
         page.search(".tdidExpedienteWidth a").map{|h| h['href'] }.each do |href|
-          contract = parse_item @agent.click(page.link_with(:href => href))
-          @contracts.push contract
+          if contract = parse_item @agent.click(page.link_with(:href => href))
+            @contracts.push contract
+          end
         end
       end
 
@@ -23,6 +24,7 @@ module OpenLicitaciones
 
     def parse_item(item_page)
       ItemParser.new(item_page).parse
+    rescue
     end
   end
 end
