@@ -4,7 +4,7 @@ require_relative "../config/application"
 
 body = {
   from: 0,
-  size: 50_000,
+  size: 10_000,
 }
 
 response = Chewy.client.search index: ContractsIndex.index_name, type: ContractsIndex::Contract.type_name, body: body

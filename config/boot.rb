@@ -9,5 +9,6 @@ require "openssl"
 require "securerandom"
 require "yaml"
 require "erb"
+require "date"
 
 Bundler.require

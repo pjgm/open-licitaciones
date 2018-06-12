@@ -2,6 +2,15 @@
 
 require_relative "../config/application"
 
-OpenLicitaciones::Contract.all.each do |contract|
-  ContractsIndex::Contract.import contract
+contracts = OpenLicitaciones::Contract
+if ARGV[0] != "all"
+  contracts = contracts.where { updated_at >= "#{Date.today} 00:00:00" }
 end
+
+count = 0
+contracts.all.each do |contract|
+  ContractsIndex::Contract.import contract
+  count += 1
+end
+
+puts "[END] Sync #{count} records"
