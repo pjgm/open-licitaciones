@@ -17,7 +17,10 @@ module OpenLicitaciones
       # end
 
       if existing_contract = Contract.where(id: contract.id).first
-        existing_contract.set contract.values.except(:id)
+        new_values = contract.values
+        except_keys = new_values.select{ |k,v| v.nil? }.keys + [:id]
+        new_values = contract.values.except(*except_keys)
+        existing_contract.set new_values
         existing_contract.save
       else
         contract.save
