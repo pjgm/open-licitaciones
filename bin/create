@@ -2,8 +2,4 @@
 
 require_relative "../config/application"
 
-def system!(*args)
-  system(*args) || abort("\n== Command #{args} failed ==")
-end
-
 OpenLicitaciones::FeedParser.parse(3500)
