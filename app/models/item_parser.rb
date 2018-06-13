@@ -30,6 +30,7 @@ module OpenLicitaciones
       @contract.number_of_proposals = get_number_of_proposals
       @contract.final_amount = get_final_amount
       @contract.updated_at = Time.now
+      @contract.published_at = get_published_at
       @contract
     end
 
@@ -128,6 +129,13 @@ module OpenLicitaciones
 
     def parse_money(x)
       x.tr(',', '').to_f
+    end
+
+    def get_published_at
+      s = @page.search("table.dataTableEx tbody tr.rowClass1 td.padding0punto2").text.strip
+      Date.parse(s, "%d/%m/%Y")
+    rescue
+      nil
     end
   end
 end
