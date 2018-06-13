@@ -15,6 +15,7 @@ class ContractsIndex < Chewy::Index
     field :contract_value, type: "float"
     field :contract_type, type: "string", index: "not_analyzed"
     field :cpvs, type: "string", index: "not_analyzed"
+    field :cpvs_divisions, type: "string", index: "not_analyzed"
     field :location, type: "string", index: "not_analyzed"
     field :hiring_procedure, type: "string", index: "not_analyzed"
     field :date_proposal, type: "date"

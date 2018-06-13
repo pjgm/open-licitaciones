@@ -11,9 +11,10 @@ module OpenLicitaciones
     end
 
     def self.save(contract)
-      if ContractsIndex::Contract.import contract
-        puts "- [OK - ES] Imported contract #{contract.id}"
-      end
+      # Disable Elastic search
+      # if ContractsIndex::Contract.import contract
+      #   puts "- [OK - ES] Imported contract #{contract.id}"
+      # end
 
       if existing_contract = Contract.where(id: contract.id).first
         existing_contract.set contract.values.except(:id)
