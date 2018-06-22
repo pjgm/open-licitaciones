@@ -16,8 +16,9 @@ system! "dropdb #{database_name}"
 system! "createdb #{database_name}"
 puts "- Database #{database_name} created"
 
+# TODO: use Rake
 Sequel.extension :migration
-Sequel::Migrator.run(OpenLicitaciones::DB.connection, "db/migrate")
+Sequel::Migrator.run(OpenLicitaciones::DB.connection, "db/migrations")
 
 require_relative "../config/application"
 

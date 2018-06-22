@@ -6,21 +6,13 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    axiom-types (0.1.1)
-      descendants_tracker (~> 0.0.4)
-      ice_nine (~> 0.11.0)
-      thread_safe (~> 0.3, >= 0.3.1)
     byebug (10.0.2)
     chewy (5.0.0)
       activesupport (>= 4.0)
       elasticsearch (>= 2.0.0)
       elasticsearch-dsl
-    coercible (1.0.0)
-      descendants_tracker (~> 0.0.1)
     concurrent-ruby (1.0.5)
     connection_pool (2.2.2)
-    descendants_tracker (0.0.4)
-      thread_safe (~> 0.3, >= 0.3.1)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
     elasticsearch (6.1.0)
@@ -32,14 +24,12 @@ GEM
     elasticsearch-transport (6.1.0)
       faraday
       multi_json
-    equalizer (0.0.11)
     faraday (0.15.2)
       multipart-post (>= 1.2, < 3)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (1.0.1)
       concurrent-ruby (~> 1.0)
-    ice_nine (0.11.2)
     mechanize (2.7.6)
       domain_name (~> 0.5, >= 0.5.1)
       http-cookie (~> 1.0)
@@ -64,17 +54,15 @@ GEM
     ntlm-http (0.1.1)
     pg (1.0.0)
     sequel (5.9.0)
+    sequel-rake (0.2.0)
+      thor (~> 0.19)
+    thor (0.20.0)
     thread_safe (0.3.6)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.5)
-    virtus (1.0.5)
-      axiom-types (~> 0.1)
-      coercible (~> 1.0)
-      descendants_tracker (~> 0.0, >= 0.0.3)
-      equalizer (~> 0.0, >= 0.0.9)
     webrobots (0.1.2)
 
 PLATFORMS
@@ -87,7 +75,7 @@ DEPENDENCIES
   nokogiri (~> 1.8.2)
   pg
   sequel
-  virtus
+  sequel-rake
 
 BUNDLED WITH
    1.16.2
