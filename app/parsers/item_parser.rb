@@ -72,7 +72,7 @@ module OpenLicitaciones
 
     def get_cpvs
       @page.search("#fila8_columna2 span").text.strip.split(",").map do |cpv_str|
-        if m = cpv_str.match(/(\d+)/)
+        if (m = cpv_str.match(/(\d+)/))
           m[0].strip
         end
       end.compact
@@ -98,7 +98,7 @@ module OpenLicitaciones
 
     def get_date_proposal
       s = @page.search("#fila12_1_columna2 span").text.strip
-      DateTime.parse(s, "%d/%m/%Y %H:%M")
+      Time.parse(s, "%d/%m/%Y %H:%M")
     rescue StandardError
       nil
     end
