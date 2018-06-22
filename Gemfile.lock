@@ -6,6 +6,9 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    amatch (0.4.0)
+      mize
+      tins (~> 1.0)
     byebug (10.0.2)
     chewy (5.0.0)
       activesupport (>= 4.0)
@@ -26,10 +29,13 @@ GEM
       multi_json
     faraday (0.15.2)
       multipart-post (>= 1.2, < 3)
+    fuzzy_match (2.1.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (1.0.1)
       concurrent-ruby (~> 1.0)
+    ine-places (0.2.0)
+      activesupport (>= 4.2)
     mechanize (2.7.6)
       domain_name (~> 0.5, >= 0.5.1)
       http-cookie (~> 1.0)
@@ -44,6 +50,8 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
+    mize (0.3.5)
+      protocol
     multi_json (1.13.1)
     multipart-post (2.0.0)
     net-http-digest_auth (1.4.1)
@@ -53,11 +61,17 @@ GEM
       mini_portile2 (~> 2.3.0)
     ntlm-http (0.1.1)
     pg (1.0.0)
+    protocol (1.0.1)
+      ruby_parser (~> 3.0)
+    ruby_parser (3.11.0)
+      sexp_processor (~> 4.9)
     sequel (5.9.0)
     sequel-rake (0.2.0)
       thor (~> 0.19)
+    sexp_processor (4.11.0)
     thor (0.20.0)
     thread_safe (0.3.6)
+    tins (1.16.3)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     unf (0.1.4)
@@ -69,8 +83,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activesupport
+  amatch
   byebug
   chewy
+  fuzzy_match
+  ine-places
   mechanize
   nokogiri (~> 1.8.2)
   pg
