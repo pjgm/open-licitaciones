@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+require_relative "../../config/application"
+
+contracts = OpenLicitaciones::Contract.where(contractor_type: nil)
+if ARGV[0] != "all"
+  contracts = contracts.where { updated_at >= "#{Date.today} 00:00:00" }
+end
+
+puts "Updating #{contracts.count} contracts..."
+
+contracts.each do |contract|
+  if (type = OpenLicitaciones::ETL::Transformation::ContractorType.new.classify(contract.contractor_name))
+    puts "- Updated contract #{contract.internal_id} #{contract.contractor_name} to type #{type}"
+    contract.contractor_type = type
+    contract.save
+  else
+    puts "- [NOT FOUND] Contract #{contract.internal_id} #{contract.contractor_name}"
+  end
+end
