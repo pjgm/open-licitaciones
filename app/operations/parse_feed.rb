@@ -3,7 +3,7 @@
 require_relative "../../config/application"
 
 module OpenLicitaciones
-  class FeedParser
+  class ParseFeed
     def self.parse(npages = 5)
       url = "https://contrataciondelestado.es/wps/portal/licRecientes"
       @agent = Mechanize.new { |agent| agent.user_agent_alias = "Mac Safari" }

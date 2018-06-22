@@ -2,5 +2,4 @@
 
 require_relative "../config/application"
 
-
-OpenLicitaciones::FeedParser.parse(50)
+OpenLicitaciones::ParseFeed.parse(50)

@@ -11,7 +11,7 @@ module OpenLicitaciones
     end
 
     def self.save(contract)
-      # Disable Elastic search
+      # Disable temporally Elastic search
       # if ContractsIndex::Contract.import contract
       #   puts "- [OK - ES] Imported contract #{contract.id}"
       # end

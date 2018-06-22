@@ -1,11 +1,15 @@
 #!/usr/bin/env ruby
 
+require "highline/import"
 require_relative "../config/boot"
 require_relative "../config/db"
 
 def system!(*args)
   system(*args)
 end
+
+confirm = ask("Delete #{database_name} database? [Y/N]") { |yn| yn.limit = 1, yn.validate = /[yn]/i }
+exit unless confirm.downcase == "y"
 
 database_name = YAML.load(ERB.new(File.read(File.expand_path('../../config/database.yml', __FILE__))).result)['database']
 system! "dropdb #{database_name}"

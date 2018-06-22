@@ -2,4 +2,4 @@
 
 require_relative "../config/application"
 
-OpenLicitaciones::HistoryParser.parse(ARGV[0].to_i)
+OpenLicitaciones::ParseSitemap.parse(ARGV[0].to_i)

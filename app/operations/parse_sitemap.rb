@@ -5,7 +5,7 @@ require_relative "../../config/application"
 Thread.report_on_exception = false
 
 module OpenLicitaciones
-  class HistoryParser
+  class ParseSitemap
     BASE_URL = "https://contrataciondelestado.es/"
     def self.parse(page)
       url = BASE_URL + "siteindex.xml"

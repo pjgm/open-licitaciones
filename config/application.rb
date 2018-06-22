@@ -8,11 +8,11 @@ Sequel::Model.db.extension(:pg_array)
 
 # Models
 require_relative "../app/models/contract"
-require_relative "../app/models/item_parser"
-require_relative "../app/models/page_parser"
+require_relative "../app/parsers/item_parser"
+require_relative "../app/parsers/page_parser"
 require_relative "../app/models/importer"
-require_relative "../app/models/feed_parser"
-require_relative "../app/models/history_parser"
+require_relative "../app/operations/parse_feed"
+require_relative "../app/operations/parse_sitemap"
 
 # Chewy indexes
 require_relative "../app/chewy/contracts_index"
