@@ -12,3 +12,5 @@ require "erb"
 require "date"
 
 Bundler.require
+
+require "active_support/all"

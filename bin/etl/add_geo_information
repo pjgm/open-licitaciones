@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+
+require_relative "../../config/application"
+
+geo_information = OpenLicitaciones::ETL::Transformation::GeoInformation.new
+contracts = OpenLicitaciones::Contract.where(municipality_id: nil, province_id: nil)
+if ARGV[0] != "all"
+  contracts = contracts.where { updated_at >= "#{Date.today} 00:00:00" }
+end
+
+puts "Updating #{contracts.count} contracts..."
+
+contracts.each do |contract|
+  entity_candidate = geo_information.find(contract.entity_name)
+  contractor_candidate = geo_information.find(contract.contractor_name)
+  if (municipality = [entity_candidate, contractor_candidate].compact.uniq.try(:first))
+    puts "- Updating municipality in contract #{contract.internal_id} for #{contract.entity_name} - #{contract.contractor_name} >> #{municipality.name}"
+    contract.municipality_id = municipality.id
+    contract.municipality_name = municipality.name
+    contract.province_id = municipality.province.id
+    contract.province_name = municipality.province.name
+    contract.autonomous_region_id = municipality.province.autonomous_region.id
+    contract.autonomous_region_name = municipality.province.autonomous_region.name
+    contract.save
+  elsif (province = INE::Places::Province.find_by_slug(contract.location.split(" - ").last.strip.parameterize))
+    puts "- Updating province in contract #{contract.internal_id} for #{contract.entity_name} - #{contract.contractor_name} in #{contract.location} >> #{province.name}"
+    contract.province_id = province.id
+    contract.province_name = province.name
+    contract.autonomous_region_id = province.autonomous_region.id
+    contract.autonomous_region_name = province.autonomous_region.name
+    contract.save
+  else
+    puts "- [NOT FOUND] Updating contract #{contract.internal_id} for #{contract.entity_name} - #{contract.contractor_name} in #{contract.location}"
+  end
+end
