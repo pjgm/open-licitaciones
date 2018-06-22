@@ -16,9 +16,9 @@ module OpenLicitaciones
       #   puts "- [OK - ES] Imported contract #{contract.id}"
       # end
 
-      if (existing_contract = Contract.where(id: contract.id).first)
+      if (existing_contract = Contract.where(permalink: contract.permalink).first)
         new_values = contract.values
-        except_keys = new_values.select { |_k, v| v.nil? }.keys + [:id]
+        except_keys = new_values.select { |_k, v| v.nil? }.keys + [:id, :permalink]
         new_values = contract.values.except(*except_keys)
         existing_contract.set new_values
         existing_contract.save
