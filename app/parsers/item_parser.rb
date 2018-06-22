@@ -21,6 +21,7 @@ module OpenLicitaciones
       @contract.contract_type = get_contract_type
       @contract.cpvs = get_cpvs
       @contract.cpvs_divisions = get_cpvs_divisions
+      @contract.cpvs_groups = get_cpvs_groups
       @contract.location = get_location
       @contract.hiring_procedure = get_hiring_procedure
       @contract.date_proposal = get_date_proposal
@@ -85,6 +86,12 @@ module OpenLicitaciones
     def get_cpvs_divisions
       get_cpvs.map do |cpv|
         cpv[0..2] + "00000"
+      end.sort.uniq
+    end
+
+    def get_cpvs_groups
+      get_cpvs.map do |cpv|
+        cpv[0..3] + "0000"
       end.sort.uniq
     end
 
