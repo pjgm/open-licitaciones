@@ -2,4 +2,6 @@
 
 require_relative "../config/application"
 
+# Imports 50 pages from the feed
+
 OpenLicitaciones::ParseFeed.parse(50)

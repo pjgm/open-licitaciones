@@ -1,5 +1,0 @@
-#!/usr/bin/env ruby
-
-require_relative "../config/application"
-
-OpenLicitaciones::ParseFeed.parse(3500)

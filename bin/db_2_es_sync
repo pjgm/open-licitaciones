@@ -2,6 +2,8 @@
 
 require_relative "../config/application"
 
+ # Syncs DB items into ES
+
 contracts = OpenLicitaciones::Contract
 if ARGV[0] != "all"
   contracts = contracts.where { updated_at >= "#{Date.today} 00:00:00" }

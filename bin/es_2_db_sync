@@ -2,6 +2,8 @@
 
 require_relative "../config/application"
 
+ # Syncs ES items into DB
+
 body = {
   from: 0,
   size: 10_000,

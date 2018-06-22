@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+# Resets database, creates it and creates ES indexes
+
 require "highline/import"
 require_relative "../config/boot"
 require_relative "../config/db"
@@ -8,10 +10,11 @@ def system!(*args)
   system(*args)
 end
 
+database_name = YAML.load(ERB.new(File.read(File.expand_path('../../config/database.yml', __FILE__))).result)['database']
+
 confirm = ask("Delete #{database_name} database? [Y/N]") { |yn| yn.limit = 1, yn.validate = /[yn]/i }
 exit unless confirm.downcase == "y"
 
-database_name = YAML.load(ERB.new(File.read(File.expand_path('../../config/database.yml', __FILE__))).result)['database']
 system! "dropdb #{database_name}"
 system! "createdb #{database_name}"
 puts "- Database #{database_name} created"
