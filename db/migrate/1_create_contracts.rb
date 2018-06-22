@@ -15,7 +15,7 @@ Sequel.migration do
       Float :base_budget
       Float :contract_value
       String :contract_type
-      column 'cpvs', 'text[]' # PostgreSql Array
+      column "cpvs", "text[]" # PostgreSql Array
       String :location
       String :hiring_procedure
       Date :date_proposal

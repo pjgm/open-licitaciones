@@ -12,8 +12,8 @@ module OpenLicitaciones
 
     def parse
       @agent.get(@url) do |page|
-        page.search(".tdidExpedienteWidth a").map{|h| h['href'] }.each do |href|
-          if contract = parse_item(@agent.click(page.link_with(:href => href)))
+        page.search(".tdidExpedienteWidth a").map { |h| h["href"] }.each do |href|
+          if contract = parse_item(@agent.click(page.link_with(href: href)))
             @contracts.push contract
           end
         end
@@ -24,7 +24,7 @@ module OpenLicitaciones
 
     def parse_item(item_page)
       ItemParser.new(item_page).parse
-    rescue
+    rescue StandardError
     end
   end
 end

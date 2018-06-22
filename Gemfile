@@ -2,12 +2,12 @@
 
 source "https://rubygems.org"
 
-git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
+git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem "nokogiri", "~> 1.8.2"
-gem "mechanize"
 gem "byebug"
-gem "virtus"
 gem "chewy"
-gem "sequel"
+gem "mechanize"
+gem "nokogiri", "~> 1.8.2"
 gem "pg"
+gem "sequel"
+gem "virtus"

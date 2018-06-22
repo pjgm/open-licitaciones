@@ -20,18 +20,18 @@ module OpenLicitaciones
         urls_group.each do |url|
           threads << Thread.new do
             contracts = []
-            agent = Mechanize.new { |agent| agent.user_agent_alias = 'Mac Safari' }
+            agent = Mechanize.new { |agent| agent.user_agent_alias = "Mac Safari" }
             agent.get(url) do |page|
               begin
                 item = ItemParser.new(page).parse
                 contracts.push(item)
-              rescue
+              rescue StandardError
               end
             end
             Importer.import(contracts)
           end
         end
-        threads.each { |thr| thr.join }
+        threads.each(&:join)
         sleep 5
       end
     end

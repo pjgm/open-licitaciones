@@ -3,7 +3,7 @@
 Sequel.migration do
   up do
     extension :pg_array
-    add_column :contracts, :cpvs_divisions, 'text[]'
+    add_column :contracts, :cpvs_divisions, "text[]"
   end
 
   down do

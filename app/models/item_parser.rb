@@ -39,7 +39,7 @@ module OpenLicitaciones
     def get_id
       id = @page.search("#fila0_columna0 span").last.text.strip
       entity = get_entity
-      [entity, id].join('/')
+      [entity, id].join("/")
     end
 
     def get_entity
@@ -71,13 +71,13 @@ module OpenLicitaciones
     end
 
     def get_cpvs
-      @page.search("#fila8_columna2 span").text.strip.split(',').map do |cpv_str|
+      @page.search("#fila8_columna2 span").text.strip.split(",").map do |cpv_str|
         if m = cpv_str.match(/(\d+)/)
           m[0].strip
         end
       end.compact
-    rescue
-      puts $!
+    rescue StandardError
+      puts $ERROR_INFO
       puts @page.search("#fila8_columna2 span").text.strip
       []
     end
@@ -99,12 +99,12 @@ module OpenLicitaciones
     def get_date_proposal
       s = @page.search("#fila12_1_columna2 span").text.strip
       DateTime.parse(s, "%d/%m/%Y %H:%M")
-    rescue
+    rescue StandardError
       nil
     end
 
     def get_permalink
-      if @page.search("#fila18_columna2_1 span").length > 0
+      if !@page.search("#fila18_columna2_1 span").empty?
         @page.search("#fila18_columna2_1 span").text.strip
       else
         @page.search("#fila18_columna2_2 span").text.strip
@@ -128,13 +128,13 @@ module OpenLicitaciones
     end
 
     def parse_money(x)
-      x.tr(',', '').to_f
+      x.tr(",", "").to_f
     end
 
     def get_published_at
       s = @page.search("table.dataTableEx tbody tr.rowClass1 td.padding0punto2").text.strip
       Date.parse(s, "%d/%m/%Y")
-    rescue
+    rescue StandardError
       nil
     end
   end
