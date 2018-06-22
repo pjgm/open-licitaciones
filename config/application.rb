@@ -14,6 +14,7 @@ require_relative "../app/models/importer"
 require_relative "../app/operations/parse_feed"
 require_relative "../app/operations/parse_sitemap"
 require_relative "../app/etl/transformation/geo_information"
+require_relative "../app/etl/transformation/contractor_type"
 
 # Chewy indexes
 require_relative "../app/chewy/contracts_index"
