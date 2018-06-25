@@ -17,9 +17,12 @@ module OpenLicitaciones
 
         def find(str)
           candidate_name, score1, score2 = @matcher.find_with_score(str)
-          place = INE::Places::Place.find(@municipalities_reverse_table[candidate_name])
-          if score1 + score2 > 0.5 && tokenize(str).include?(tokenize(place.name))
-            return place
+          begin
+            place = INE::Places::Place.find(@municipalities_reverse_table[candidate_name])
+            if score1 + score2 > 0.5 && tokenize(str).include?(tokenize(place.name))
+              return place
+            end
+          rescue ArgumentError
           end
         end
 
