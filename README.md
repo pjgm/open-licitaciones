@@ -63,9 +63,9 @@ Contract fields are (this is work in progress, this schema might change in the f
 There are two ([3 in the close future](https://github.com/PopulateTools/open-licitaciones/issues/1))
 ways to import contracts in the database.
 
-1 - Fetch latest published contracts from the recent contracts page. This is [ParseFeed](https://github.com/PopulateTools/open-licitaciones/blob/master/app/operations/parse_feed.rb) responsibility
-2 - Fetch contracts history from [sitemap](https://contrataciondelestado.es/siteindex.xml). This is [ParseSitemap](https://github.com/PopulateTools/open-licitaciones/blob/master/app/operations/parse_sitemap.rb) responsibility
-3 - Fetch the zip files with the history
+1. Fetch latest published contracts from the recent contracts page. This is [ParseFeed](https://github.com/PopulateTools/open-licitaciones/blob/master/app/operations/parse_feed.rb) responsibility
+2. Fetch contracts history from [sitemap](https://contrataciondelestado.es/siteindex.xml). This is [ParseSitemap](https://github.com/PopulateTools/open-licitaciones/blob/master/app/operations/parse_sitemap.rb) responsibility
+3. Fetch the zip files with the history
 
 These scripts follow a ELTL process because they **extract** and **load** the data. Afterwards, in `app/etl` there classes to **transform** the data and load it again.
 
