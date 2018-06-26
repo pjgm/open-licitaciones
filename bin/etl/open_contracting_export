@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require_relative "../../config/application"
+
+contract = OpenLicitaciones::Contract.first
+puts OpenLicitaciones::ETL::OpenContractingExporter.new(contract).export
