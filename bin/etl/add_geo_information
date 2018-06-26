@@ -22,14 +22,17 @@ contracts.each do |contract|
     contract.autonomous_region_id = municipality.province.autonomous_region.id
     contract.autonomous_region_name = municipality.province.autonomous_region.name
     contract.save
-  elsif (province = INE::Places::Province.find_by_slug(contract.location.split(" - ").last.strip.parameterize))
-    puts "- Updating province in contract #{contract.internal_id} for #{contract.entity_name} - #{contract.contractor_name} in #{contract.location} >> #{province.name}"
-    contract.province_id = province.id
-    contract.province_name = province.name
-    contract.autonomous_region_id = province.autonomous_region.id
-    contract.autonomous_region_name = province.autonomous_region.name
-    contract.save
   else
-    puts "- [NOT FOUND] Updating contract #{contract.internal_id} for #{contract.entity_name} - #{contract.contractor_name} in #{contract.location}"
+    province_slug = contract.location.split(" - ").last.try(:strip).try(:parameterize)
+    if (province_slug && (province = INE::Places::Province.find_by_slug(province_slug)))
+      puts "- Updating province in contract #{contract.internal_id} for #{contract.entity_name} - #{contract.contractor_name} in #{contract.location} >> #{province.name}"
+      contract.province_id = province.id
+      contract.province_name = province.name
+      contract.autonomous_region_id = province.autonomous_region.id
+      contract.autonomous_region_name = province.autonomous_region.name
+      contract.save
+    else
+      puts "- [NOT FOUND] Updating contract #{contract.internal_id} for #{contract.entity_name} - #{contract.contractor_name} in #{contract.location}"
+    end
   end
 end
